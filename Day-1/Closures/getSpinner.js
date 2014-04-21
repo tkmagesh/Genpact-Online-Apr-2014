@@ -1,5 +1,13 @@
 function getSpinner(){
-	//write the implemetation of the function here
+	var count = 0;
+	return {
+		up : function(){
+			return ++count;
+		},
+		down : function(){
+			return --count;
+		}
+	};
 }
 
 var spinner = getSpinner();
