@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Task Manager</title>
+	<style type="text/css">
+		li{
+			cursor: pointer;	
+		}
+		.completed {
+			color : red;
+			text-decoration: line-through;
+			font-style: italic;
+		}
+	</style>
+	<script src="angular.js"></script>
+	<script>
+	function Task(name){
+		this.name = name;
+		this.isCompleted = false;
+	}
+	Task.prototype.toggleCompletion = function(){
+		this.isCompleted = !this.isCompleted;
+	};
+
+	angular
+		.module('taskApp',[])
+		.controller('taskController',function($scope){
+			$scope.tasks = {
+				list : [],
+				addTask : function(taskName){
+					var newTask = new Task(taskName);
+					this.list.push(newTask);
+				},
+				removeCompleted : function(){
+					for(var i=this.list.length-1;i>=0;i--){
+						if (this.list[i].isCompleted)
+							this.list.splice(i,1);
+					}
+				}
+			}
+		})
+
+	</script>
+</head>
+<body data-ng-app="taskApp">
+	<h1>Task Manager</h1>
+	<hr>
+	<div data-ng-controller="taskController">
+		<span>Task :</span>
+		<input type="text" data-ng-model="newTask">
+		<input type="button" value="Add Task" data-ng-click="tasks.addTask(newTask)">
+		<input type="button" value="Remove Completed" data-ng-click="tasks.removeCompleted()">
+		<ul>
+			<li data-ng-repeat="task in tasks.list | filter:searchTask | orderBy:'-name'" data-ng-click="task.toggleCompletion()" data-ng-class="{completed : task.isCompleted}" ng-bind="task.name"></li>
+		</ul>
+		<span>Search</span><input type="search" data-ng-model="searchTask">
+	</div>
+</body>
+</html>

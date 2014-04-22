@@ -5,22 +5,25 @@
 	<title>Salary Calculator</title>
 	<script src="angular.js"></script>
 	<script>
-	function SalaryCalculatorController($scope){
-		$scope.calculator = {
-			basic : 10000,
-			hra : 0,
-			da :0,
-			tax : 0,
-			salary : 0,
-			calculate : function(){
-				var gross = this.basic + this.hra + this.da;
-				this.salary = gross * ((100 - this.tax)/100);
+	angular
+		.module('myApp',[])
+		.controller('SalaryCalculatorController',function SalaryCalculatorController($scope){
+			$scope.calculator = {
+				basic : 10000,
+				hra : 0,
+				da :0,
+				tax : 0,
+				salary : 0,
+				calculate : function(){
+					var gross = this.basic + this.hra + this.da;
+					this.salary = gross * ((100 - this.tax)/100);
+				}
 			}
-		}
-	}
+		});
+	
 	</script>
 </head>
-<body ng-app>
+<body ng-app="myApp">
 	<div class="content" data-ng-controller="SalaryCalculatorController">
 		<div><label for="">Basic :</label><input type="number" name="" id="txtBasic" data-ng-model="calculator.basic"></div>
 		<div><label for="">HRA :</label><input type="number" name="" id="txtHra" data-ng-model="calculator.hra"></div>
@@ -32,7 +35,7 @@
 		</div>
 		<div><input type="button" value="Calculate" id="btnCalculate" data-ng-click="calculator.calculate()"></div>
 		<div>
-			<div id="divResult">{{calculator.salary}}</div>
+			<div id="divResult">{{calculator.salary | currency:"Rs."}}</div>
 		</div>
 		</div>
 </body>
