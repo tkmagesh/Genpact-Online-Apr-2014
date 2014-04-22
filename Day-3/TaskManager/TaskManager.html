@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Task Manager</title>
+	<style type="text/css">
+		li{
+			cursor: pointer;	
+		}
+		.completed {
+			color : red;
+			text-decoration: line-through;
+			font-style: italic;
+		}
+		label{
+			display : block;
+		}
+	</style>
+	<script src="angular.js"></script>
+	<script>
+	function Task(title, description){
+		this.title = title;
+		this.isCompleted = false;
+		this.description = description;
+		this.closedOn = null;
+	}
+	Task.prototype.toggleCompletion = function(){
+		this.isCompleted = !this.isCompleted;
+	};
+	Task.prototype.close = function(){
+		this.closedOn = new Date();
+	};
+
+	angular
+		.module('taskApp',[])
+		.controller('mainController',function($scope){
+			$scope.selectedTask = null;
+			$scope.setSelectedTask = function(task){
+				$scope.selectedTask = task;
+			}
+		})
+		.controller('taskController',function($scope){
+			$scope.tasks = {
+				list : [],
+				addTask : function(taskName, description){
+					var newTask = new Task(taskName,description);
+					this.list.push(newTask);
+				},
+				removeCompleted : function(){
+					for(var i=this.list.length-1;i>=0;i--){
+						if (this.list[i].isCompleted)
+							this.list.splice(i,1);
+					}
+				}
+			}
+		})
+		.controller('taskDetailsController',function($scope){
+
+		});
+
+	</script>
+</head>
+<body data-ng-app="taskApp">
+	<h1>Task Manager</h1>
+	<hr>
+	<div data-ng-controller="mainController">
+		<div data-ng-controller="taskController" class="taskList" style="width : 400px; float : left; margin-right: 20px">
+			<h3>Task List</h3>
+			<hr>
+			<label>Task :</label>
+			<input type="text" data-ng-model="newTitle">
+			<label for="">Description :</label>
+			<textarea cols="30" rows="10" data-ng-model="newDescription"></textarea>
+			<br>
+			<input type="button" value="Add Task" data-ng-click="tasks.addTask(newTitle, newDescription)">
+			<input type="button" value="Remove Completed" data-ng-click="tasks.removeCompleted()">
+			<ul>
+				<li data-ng-repeat="task in tasks.list" data-ng-class="{completed : task.isCompleted}">
+					<div >
+						<span ng-bind="task.title"></span>
+						<span ng-show="task.closedOn">[Closed]</span>
+					</div>
+					<input type="button" value="Toggle Completion" data-ng-click="task.toggleCompletion()">
+					<input type="button" value="Select" data-ng-click="setSelectedTask(task)">
+				</li>
+			</ul>
+		</div>
+		<div data-ng-controller="taskDetailsController" data-ng-show="!!selectedTask">
+			<h3>Task Details</h3>
+			<hr>
+			<h4>{{selectedTask.title}}</h4>
+			<div>{{selectedTask.description}}</div>
+			<input type="button" value="Close" data-ng-click="selectedTask.close()">
+		</div>
+
+	</div>
+	
+</body>
+</html>
