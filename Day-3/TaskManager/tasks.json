@@ -1,6 +1,6 @@
 [
-	{"title" : "task -1", "description" : "This is the description for task - 1", "isCompleted" : false},
-	{"title" : "task -2", "description" : "This is the description for task - 2", "isCompleted" : false},
-	{"title" : "task -3", "description" : "This is the description for task - 2", "isCompleted" : false},
-	{"title" : "task -4", "description" : "This is the description for task - 3", "isCompleted" : false}
+	{"title" : "task -1", "description" : "This is the description for task - 1 Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna ", "isCompleted" : false},
+	{"title" : "task -2", "description" : "This is the description for task - 2 Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna ", "isCompleted" : false},
+	{"title" : "task -3", "description" : "This is the description for task - 3 Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna ", "isCompleted" : false},
+	{"title" : "task -4", "description" : "This is the description for task - 4 Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna ", "isCompleted" : false}
 ]

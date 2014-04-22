@@ -40,6 +40,13 @@
 				}
 			}
 		}])
+		.filter('trimSize',[function(){
+			return function(input,size){
+				input = input || '';
+				size = size || 0;
+				return input.substr(0,size);
+			}
+		}])
 		.controller('mainController',function($scope){
 			$scope.selectedTask = null;
 			$scope.setSelectedTask = function(task){
@@ -101,7 +108,7 @@
 			<h3>Task Details</h3>
 			<hr>
 			<h4>{{selectedTask.title}}</h4>
-			<div>{{selectedTask.description}}</div>
+			<div>{{selectedTask.description | trimSize:100}}</div>
 			<input type="button" value="Close" data-ng-click="selectedTask.close()">
 		</div>
 
