@@ -39,7 +39,7 @@
 				$scope.selectedTask = task;
 			}
 		})
-		.controller('taskController',function($scope){
+		.controller('taskController',['$http','$scope',function($http, $scope){
 			$scope.tasks = {
 				list : [],
 				addTask : function(taskName, description){
@@ -52,8 +52,13 @@
 							this.list.splice(i,1);
 					}
 				}
-			}
-		})
+			};
+			$http({method : 'GET', url : '/tasks.json'})
+				.success(function(data){
+					$scope.tasks.list =  data;
+				});
+
+		}])
 		.controller('taskDetailsController',function($scope){
 
 		});
