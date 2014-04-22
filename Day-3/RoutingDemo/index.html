@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Routing Demo</title>
+	<script src="scripts/angular.js"></script>
+	<script src="scripts/angular-route.js"></script>
+	<script>
+	angular.module("routingApp",['ngRoute'])
+		.config(function($routeProvider){
+			$routeProvider
+				.when("/",{
+					templateUrl : "/templates/tasks.html",
+					controller : "tasksController"
+				})
+				.when("/settings",{
+					templateUrl : "/templates/settings.html",
+					controller : "settingsController"
+				})
+				.otherwise({
+					templateUrl : "/templates/tasks.html",
+					controller : "tasksController"	
+				});
+		})
+		.controller("tasksController",function($scope){
+			$scope.tasksCount = 100;
+		})
+		.controller("settingsController",function($scope){
+			$scope.userName = "Magesh"
+		});
+	</script>
+</head>
+<body data-ng-app="routingApp">
+	<h1>Routing Demo</h1>
+	<hr>
+	<ng-view></ng-view>
+</body>
+</html>
